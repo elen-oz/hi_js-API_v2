@@ -115,7 +115,9 @@ const renderData = (data) => {
 
 getData(urlPage1);
 
-searchBtnEl.addEventListener('click', () => {
+//* --------- Search ------------
+
+const getSearch = () => {
   const searchQuery = searchInputEl.value.trim();
 
   if (searchQuery) {
@@ -126,5 +128,13 @@ searchBtnEl.addEventListener('click', () => {
     getData(searchUrl);
   } else {
     console.error('Input is empty');
+  }
+};
+
+searchBtnEl.addEventListener('click', getSearch);
+
+searchInputEl.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    getSearch();
   }
 });
