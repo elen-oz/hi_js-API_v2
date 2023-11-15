@@ -49,26 +49,26 @@ navigationPagesEl.classList.add('navigation-pages');
 // navigationPagesEl.textContent = '1';
 wrapperEl.append(navigationPagesEl);
 
+const prevBtnEl = document.createElement('button');
+prevBtnEl.classList.add('pagination-btn');
+prevBtnEl.textContent = 'Previous';
+navigationPagesEl.append(prevBtnEl);
+
 const currentPageEl = document.createElement('span');
 currentPageEl.classList.add('current-page');
 navigationPagesEl.append(currentPageEl);
 
-const totalPageEl = document.createElement('span');
-totalPageEl.classList.add('total-page');
-navigationPagesEl.append(totalPageEl);
+const totalPagesEl = document.createElement('span');
+totalPagesEl.classList.add('total-pages');
+navigationPagesEl.append(totalPagesEl);
 
 const nextBtnEl = document.createElement('button');
 nextBtnEl.classList.add('pagination-btn');
 nextBtnEl.textContent = 'Next';
 navigationPagesEl.append(nextBtnEl);
 
-const prevBtnEl = document.createElement('button');
-prevBtnEl.classList.add('pagination-btn');
-prevBtnEl.textContent = 'Previous';
-navigationPagesEl.append(prevBtnEl);
-
 let currentPage = 1;
-let totalPage = 1;
+let totalPages = 1;
 
 const API_KEY = '33fcc7c4-dacd-4f3f-acec-62d96810fb5b';
 
@@ -76,10 +76,10 @@ const urlPage1 = `https://content.guardianapis.com/search?api-key=${API_KEY}&pag
 
 const updatePagination = () => {
   currentPageEl.textContent = `Page ${currentPage} `;
-  totalPageEl.textContent = `of ${totalPage}`;
+  totalPagesEl.textContent = `of ${totalPages}`;
 };
 
-updatePagination();
+// updatePagination();
 
 const formatApiDate = (apiDate) => {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -95,8 +95,11 @@ const getData = async (data) => {
     console.log(result.response.results);
 
     //   localStorage.setItem('url', JSON.stringify(url));
-    //   localStorage.setItem('options', JSON.stringify(options));
 
+    currentPage = result.response.currentPage;
+    totalPages = result.response.pages;
+
+    updatePagination();
     renderData(result.response.results);
   } catch (error) {
     console.error(error);
@@ -167,6 +170,22 @@ const getSearch = () => {
   }
 };
 
+const nextPage = () => {
+  if (currentPage < totalPages) {
+    currentPage += 1;
+    const nextPageUrl = `https://content.guardianapis.com/search?api-key=${API_KEY}&page=${currentPage}&page-size=20`;
+    getData(nextPageUrl);
+  }
+};
+
+const prevPage = () => {
+  if (currentPage > 1) {
+    currentPage -= 1;
+    const prevPageUrl = `https://content.guardianapis.com/search?api-key=${API_KEY}&page=${currentPage}&page-size=20`;
+    getData(prevPageUrl);
+  }
+};
+
 searchBtnEl.addEventListener('click', getSearch);
 
 searchInputEl.addEventListener('keydown', (e) => {
@@ -174,3 +193,6 @@ searchInputEl.addEventListener('keydown', (e) => {
     getSearch();
   }
 });
+
+nextBtnEl.addEventListener('click', nextPage);
+prevBtnEl.addEventListener('click', prevPage);
