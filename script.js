@@ -15,31 +15,48 @@ const menuEl = document.createElement('div');
 menuEl.classList.add('menu');
 wrapperEl.append(menuEl);
 
+// search
+const searchContainerEl = document.createElement('div');
+searchContainerEl.classList.add('search-container');
+menuEl.append(searchContainerEl);
+
+const searchLabelEl = document.createElement('label');
+searchLabelEl.classList.add('search-label');
+searchLabelEl.for = 'site-search';
+searchLabelEl.textContent = 'Search...';
+searchContainerEl.append(searchLabelEl);
+
+const searchInputEl = document.createElement('input');
+searchInputEl.classList.add('search-input');
+searchInputEl.type = 'search';
+searchInputEl.for = 'site-search';
+searchInputEl.name = 'q';
+searchContainerEl.append(searchInputEl);
+
+const searchBtnEl = document.createElement('button');
+searchBtnEl.classList.add('search-btn');
+searchBtnEl.textContent = 'Search';
+searchContainerEl.append(searchBtnEl);
+
 const contentEl = document.createElement('div');
 contentEl.classList.add('content');
 contentEl.classList.add('content--grid');
 wrapperEl.append(contentEl);
 
-const cardEl = document.createElement('div');
-// cardEl.classList.add('card');
-// contentEl.append(cardEl);
-
-// const cardEl2 = document.createElement('div');
-// cardEl2.classList.add('card');
-// contentEl.append(cardEl2);
-// const cardEl3 = document.createElement('div');
-// cardEl3.classList.add('card');
-// contentEl.append(cardEl3);
-// const cardEl4 = document.createElement('div');
-// cardEl4.classList.add('card');
-// contentEl.append(cardEl4);
+const navigationPagesEl = document.createElement('div');
+navigationPagesEl.classList.add('navigation-pages');
+navigationPagesEl.textContent = '1';
+wrapperEl.append(navigationPagesEl);
 
 const API_KEY = '33fcc7c4-dacd-4f3f-acec-62d96810fb5b';
 
-const urlPage1 =
-  'https://content.guardianapis.com/search?api-key=33fcc7c4-dacd-4f3f-acec-62d96810fb5b&page=1&page-size=20';
+const urlPage1 = `https://content.guardianapis.com/search?api-key=${API_KEY}&page=1&page-size=20`;
 
-//  https://content.guardianapis.com/search?api-key=33fcc7c4-dacd-4f3f-acec-62d96810fb5b&page=500
+const formatApiDate = (apiDate) => {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const formattedDate = new Date(apiDate).toLocaleDateString('en-US', options);
+  return formattedDate;
+};
 
 const getData = async (data) => {
   //   const { url, options } = data;
@@ -49,6 +66,7 @@ const getData = async (data) => {
     const result = await response.json();
 
     console.log(result.response.results);
+    // console.log(result.response);
 
     //   localStorage.setItem('url', JSON.stringify(url));
     //   localStorage.setItem('options', JSON.stringify(options));
@@ -71,6 +89,12 @@ const renderData = (data) => {
     pillarNameEl.textContent = `${item.pillarName}`;
     cardEl.append(pillarNameEl);
 
+    // webPublicationDate
+    const publicationDateEl = document.createElement('div');
+    publicationDateEl.classList.add('card__date');
+    publicationDateEl.textContent = formatApiDate(item.webPublicationDate);
+    cardEl.append(publicationDateEl);
+
     const cardTitleEl = document.createElement('h2');
     cardTitleEl.classList.add('card__title');
     cardTitleEl.textContent = `${item.webTitle}`;
@@ -79,6 +103,13 @@ const renderData = (data) => {
     const cardContentEl = document.createElement('div');
     cardContentEl.classList.add('card__content');
     cardEl.append(cardContentEl);
+
+    // apiUrl
+    const linkEl = document.createElement('a');
+    linkEl.classList.add('card__link');
+    linkEl.href = item.webUrl;
+    linkEl.textContent = 'Show Full Article';
+    cardEl.append(linkEl);
   });
 };
 
