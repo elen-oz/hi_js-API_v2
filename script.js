@@ -7,7 +7,7 @@ appEl.prepend(wrapperEl);
 
 const titleEl = document.createElement('h1');
 titleEl.classList.add('title');
-titleEl.textContent = 'Title';
+titleEl.textContent = 'TheGuardian API';
 wrapperEl.prepend(titleEl);
 
 // menu with categories
@@ -95,14 +95,14 @@ const renderData = (data) => {
     publicationDateEl.textContent = formatApiDate(item.webPublicationDate);
     cardEl.append(publicationDateEl);
 
-    const cardTitleEl = document.createElement('h2');
-    cardTitleEl.classList.add('card__title');
-    cardTitleEl.textContent = `${item.webTitle}`;
-    cardEl.append(cardTitleEl);
-
     const cardContentEl = document.createElement('div');
     cardContentEl.classList.add('card__content');
     cardEl.append(cardContentEl);
+
+    const cardTitleEl = document.createElement('h2');
+    cardTitleEl.classList.add('card__title');
+    cardTitleEl.textContent = `${item.webTitle}`;
+    cardContentEl.append(cardTitleEl);
 
     // apiUrl
     const linkEl = document.createElement('a');
@@ -114,3 +114,17 @@ const renderData = (data) => {
 };
 
 getData(urlPage1);
+
+searchBtnEl.addEventListener('click', () => {
+  const searchQuery = searchInputEl.value.trim();
+
+  if (searchQuery) {
+    const searchUrl = `https://content.guardianapis.com/search?q=${encodeURIComponent(
+      searchQuery
+    )}&api-key=${API_KEY}&page=1&page-size=20`;
+
+    getData(searchUrl);
+  } else {
+    console.error('Input is empty');
+  }
+});
