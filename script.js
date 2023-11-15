@@ -178,6 +178,7 @@ const renderData = (data) => {
     const linkEl = document.createElement('a');
     linkEl.classList.add('card__link');
     linkEl.href = item.webUrl;
+    linkEl.target = '_blanc';
     linkEl.textContent = 'Show Full Article';
     cardEl.append(linkEl);
   });
