@@ -59,14 +59,11 @@ const formatApiDate = (apiDate) => {
 };
 
 const getData = async (data) => {
-  //   const { url, options } = data;
-
   try {
     const response = await fetch(data);
     const result = await response.json();
 
     console.log(result.response.results);
-    // console.log(result.response);
 
     //   localStorage.setItem('url', JSON.stringify(url));
     //   localStorage.setItem('options', JSON.stringify(options));
@@ -84,12 +81,18 @@ const renderData = (data) => {
     cardEl.classList.add('card');
     contentEl.append(cardEl);
 
-    const pillarNameEl = document.createElement('h2');
+    const pillarNameEl = document.createElement('h3');
     pillarNameEl.classList.add('card__pillar-name');
+    pillarNameEl.classList.add('card-tag');
     pillarNameEl.textContent = `${item.pillarName}`;
     cardEl.append(pillarNameEl);
 
-    // webPublicationDate
+    const sectionNameEl = document.createElement('h3');
+    sectionNameEl.classList.add('card__section-name');
+    sectionNameEl.classList.add('card-tag');
+    sectionNameEl.textContent = `${item.sectionName}`;
+    cardEl.append(sectionNameEl);
+
     const publicationDateEl = document.createElement('div');
     publicationDateEl.classList.add('card__date');
     publicationDateEl.textContent = formatApiDate(item.webPublicationDate);
@@ -104,7 +107,6 @@ const renderData = (data) => {
     cardTitleEl.textContent = `${item.webTitle}`;
     cardContentEl.append(cardTitleEl);
 
-    // apiUrl
     const linkEl = document.createElement('a');
     linkEl.classList.add('card__link');
     linkEl.href = item.webUrl;
@@ -127,6 +129,11 @@ const getSearch = () => {
 
     getData(searchUrl);
   } else {
+    searchInputEl.classList.add('error-input');
+    setTimeout(() => {
+      searchInputEl.classList.remove('error-input');
+    }, 2000);
+
     console.error('Input is empty');
   }
 };
