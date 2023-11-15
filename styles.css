@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,900;1,400&display=swap');
+
+:root {
+  --second-color-dark: #a09a8d;
+  --second-color-darker: #c2bdb2;
+  --second-color: #e5e1d8;
+  --second-color-lighter: #fdfaf2;
+
+  --main-color: #656462;
+  --main-color-light: #7a7977;
+  --main-color-darker: #565553;
+  --main-color-dark: #474644;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  font-family: 'Playfair Display', serif;
+  color: var(--main-color);
+  background-color: var(--second-color);
+}
+
+img {
+  display: block;
+}
+
+a {
+  color: cornflowerblue;
+  text-decoration: none;
+}
+a:hover {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.wrapper {
+  padding: 2rem 1rem 0;
+  margin: 0 auto;
+  max-width: 900px;
+  height: 100%;
+}
+
+.title {
+  font-size: 2.9rem;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 1rem;
+}
+
+.menu {
+  width: 100%;
+  height: 3rem;
+  margin: 0 auto;
+
+  border: 2px dotted green;
+}
+
+.content {
+  width: 100%;
+  /* height: 500px; */
+  margin: 0 auto;
+  /* padding: 0rem 1rem 0; */
+
+  border: 2px dotted chocolate;
+}
+
+.content--grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  background-color: var(--second-color-lighter);
+  /* border: 2px dotted yellow; */
+}
+
+.card__pillar-name {
+  display: inline-block;
+  padding-bottom: 0.5rem;
+  font-size: 0.9rem;
+  font-style: italic;
+  /* text-align: right; */
+}
+
+.card__title {
+  font-size: 1.1rem;
+}
