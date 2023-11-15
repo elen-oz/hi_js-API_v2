@@ -5,17 +5,21 @@ const wrapperEl = document.createElement('div');
 wrapperEl.classList.add('wrapper');
 appEl.prepend(wrapperEl);
 
+const linkToHomeEl = document.createElement('a');
+linkToHomeEl.href = '#';
+wrapperEl.append(linkToHomeEl);
+
 const titleEl = document.createElement('h1');
 titleEl.classList.add('title');
 titleEl.textContent = 'TheGuardian API';
-wrapperEl.prepend(titleEl);
+linkToHomeEl.append(titleEl);
 
 // menu with categories
 const menuEl = document.createElement('div');
 menuEl.classList.add('menu');
 wrapperEl.append(menuEl);
 
-// search
+//* ------ SEARCH -----------
 const searchContainerEl = document.createElement('div');
 searchContainerEl.classList.add('search-container');
 menuEl.append(searchContainerEl);
@@ -43,10 +47,9 @@ contentEl.classList.add('content');
 contentEl.classList.add('content--grid');
 wrapperEl.append(contentEl);
 
-// ---- Navigation ------
+//* ---- PAGINATION ------
 const navigationPagesEl = document.createElement('div');
 navigationPagesEl.classList.add('navigation-pages');
-// navigationPagesEl.textContent = '1';
 wrapperEl.append(navigationPagesEl);
 
 const prevBtnEl = document.createElement('button');
@@ -72,19 +75,52 @@ let totalPages = 1;
 
 const API_KEY = '33fcc7c4-dacd-4f3f-acec-62d96810fb5b';
 
-const urlPage1 = `https://content.guardianapis.com/search?api-key=${API_KEY}&page=1&page-size=20`;
+const urlAPI = `https://content.guardianapis.com/search?api-key=${API_KEY}&page=1&page-size=20`;
 
 const updatePagination = () => {
   currentPageEl.textContent = `Page ${currentPage} `;
   totalPagesEl.textContent = `of ${totalPages}`;
 };
 
-// updatePagination();
-
 const formatApiDate = (apiDate) => {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const formattedDate = new Date(apiDate).toLocaleDateString('en-US', options);
   return formattedDate;
+};
+
+const getSearch = () => {
+  const searchQuery = searchInputEl.value.trim();
+
+  if (searchQuery) {
+    const searchUrl = `https://content.guardianapis.com/search?q=${encodeURIComponent(
+      searchQuery
+    )}&api-key=${API_KEY}&page=1&page-size=20`;
+
+    getData(searchUrl);
+  } else {
+    searchInputEl.classList.add('error-input');
+    setTimeout(() => {
+      searchInputEl.classList.remove('error-input');
+    }, 2000);
+
+    console.error('Input is empty');
+  }
+};
+
+const nextPage = () => {
+  if (currentPage < totalPages) {
+    currentPage += 1;
+    const nextPageUrl = `https://content.guardianapis.com/search?api-key=${API_KEY}&page=${currentPage}&page-size=20`;
+    getData(nextPageUrl);
+  }
+};
+
+const prevPage = () => {
+  if (currentPage > 1) {
+    currentPage -= 1;
+    const prevPageUrl = `https://content.guardianapis.com/search?api-key=${API_KEY}&page=${currentPage}&page-size=20`;
+    getData(prevPageUrl);
+  }
 };
 
 const getData = async (data) => {
@@ -94,7 +130,7 @@ const getData = async (data) => {
 
     console.log(result.response.results);
 
-    //   localStorage.setItem('url', JSON.stringify(url));
+    localStorage.setItem('url', JSON.stringify(data));
 
     currentPage = result.response.currentPage;
     totalPages = result.response.pages;
@@ -147,44 +183,14 @@ const renderData = (data) => {
   });
 };
 
-getData(urlPage1);
+const storedUrl = JSON.parse(localStorage.getItem('url'));
 
-//* --------- Search ------------
+storedUrl ? getData(storedUrl) : getData(urlAPI);
 
-const getSearch = () => {
-  const searchQuery = searchInputEl.value.trim();
-
-  if (searchQuery) {
-    const searchUrl = `https://content.guardianapis.com/search?q=${encodeURIComponent(
-      searchQuery
-    )}&api-key=${API_KEY}&page=1&page-size=20`;
-
-    getData(searchUrl);
-  } else {
-    searchInputEl.classList.add('error-input');
-    setTimeout(() => {
-      searchInputEl.classList.remove('error-input');
-    }, 2000);
-
-    console.error('Input is empty');
-  }
-};
-
-const nextPage = () => {
-  if (currentPage < totalPages) {
-    currentPage += 1;
-    const nextPageUrl = `https://content.guardianapis.com/search?api-key=${API_KEY}&page=${currentPage}&page-size=20`;
-    getData(nextPageUrl);
-  }
-};
-
-const prevPage = () => {
-  if (currentPage > 1) {
-    currentPage -= 1;
-    const prevPageUrl = `https://content.guardianapis.com/search?api-key=${API_KEY}&page=${currentPage}&page-size=20`;
-    getData(prevPageUrl);
-  }
-};
+linkToHomeEl.addEventListener('click', () => {
+  localStorage.removeItem('url');
+  getData(urlAPI);
+});
 
 searchBtnEl.addEventListener('click', getSearch);
 
