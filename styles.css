@@ -35,7 +35,29 @@ button {
   border: none;
   padding: 0.5rem 1rem;
   margin: 0 0.3rem;
+  transition: 0.3s;
 }
+button:hover {
+  cursor: pointer;
+  color: var(--second-color-lighter);
+  background-color: var(--accent-color);
+}
+button:active {
+  border-color: var(--second-color-lighter);
+}
+
+/*   
+}
+.search-btn:hover {
+  
+}
+.search-btn:active {
+  background-color: var(--main-color-light);
+} */
+
+/* .pagination-btn:hover {
+  background-color: #7a7977;
+  } */
 
 img {
   display: block;
@@ -91,23 +113,20 @@ a:hover {
 }
 
 .search-btn {
-  /* border: none;
-  padding: 0.5rem 1rem; */
-  /* border-radius: 4px; */
   text-transform: uppercase;
-  transition: 0.5s;
+  /* transition: 0.5s; */
 }
-.search-btn:hover {
+/* .search-btn:hover {
   background-color: var(--second-color-lighter);
 }
 .search-btn:active {
   background-color: var(--main-color-light);
-}
+} */
 
 .navigation-pages {
   margin: 0 auto;
   text-align: center;
-  padding: 0.5rem;
+  padding: 1rem 0;
 }
 
 .current-page {
