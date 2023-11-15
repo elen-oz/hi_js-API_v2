@@ -43,14 +43,43 @@ contentEl.classList.add('content');
 contentEl.classList.add('content--grid');
 wrapperEl.append(contentEl);
 
+// ---- Navigation ------
 const navigationPagesEl = document.createElement('div');
 navigationPagesEl.classList.add('navigation-pages');
-navigationPagesEl.textContent = '1';
+// navigationPagesEl.textContent = '1';
 wrapperEl.append(navigationPagesEl);
+
+const currentPageEl = document.createElement('span');
+currentPageEl.classList.add('current-page');
+navigationPagesEl.append(currentPageEl);
+
+const totalPageEl = document.createElement('span');
+totalPageEl.classList.add('total-page');
+navigationPagesEl.append(totalPageEl);
+
+const nextBtnEl = document.createElement('button');
+nextBtnEl.classList.add('pagination-btn');
+nextBtnEl.textContent = 'Next';
+navigationPagesEl.append(nextBtnEl);
+
+const prevBtnEl = document.createElement('button');
+prevBtnEl.classList.add('pagination-btn');
+prevBtnEl.textContent = 'Previous';
+navigationPagesEl.append(prevBtnEl);
+
+let currentPage = 1;
+let totalPage = 1;
 
 const API_KEY = '33fcc7c4-dacd-4f3f-acec-62d96810fb5b';
 
 const urlPage1 = `https://content.guardianapis.com/search?api-key=${API_KEY}&page=1&page-size=20`;
+
+const updatePagination = () => {
+  currentPageEl.textContent = `Page ${currentPage} `;
+  totalPageEl.textContent = `of ${totalPage}`;
+};
+
+updatePagination();
 
 const formatApiDate = (apiDate) => {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
