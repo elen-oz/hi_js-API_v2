@@ -68,7 +68,6 @@ a:hover {
 }
 
 .footer {
-  /* color: #d1cdcd; */
   text-align: center;
   width: 100%;
   padding: 1rem 0;
@@ -76,7 +75,6 @@ a:hover {
 
 .title {
   font-size: 2.9rem;
-  /* text-transform: uppercase; */
   text-align: center;
   margin: 1rem 0;
 }
@@ -93,9 +91,6 @@ a:hover {
   gap: 1rem;
   justify-content: center;
   align-items: center;
-}
-
-.search-label {
 }
 
 .search-input {
@@ -115,10 +110,6 @@ a:hover {
   margin: 0 auto;
   text-align: center;
   padding: 1rem 0;
-}
-
-.current-page {
-  /* padding: 0.5rem; */
 }
 
 .total-page {
