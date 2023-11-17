@@ -46,19 +46,6 @@ button:active {
   border-color: var(--second-color-lighter);
 }
 
-/*   
-}
-.search-btn:hover {
-  
-}
-.search-btn:active {
-  background-color: var(--main-color-light);
-} */
-
-/* .pagination-btn:hover {
-  background-color: #7a7977;
-  } */
-
 img {
   display: block;
 }
@@ -78,6 +65,13 @@ a:hover {
   margin: 0 auto;
   max-width: 900px;
   height: 100%;
+}
+
+.footer {
+  /* color: #d1cdcd; */
+  text-align: center;
+  width: 100%;
+  padding: 1rem 0;
 }
 
 .title {

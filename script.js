@@ -70,6 +70,13 @@ nextBtnEl.classList.add('pagination-btn');
 nextBtnEl.textContent = 'Next';
 navigationPagesEl.append(nextBtnEl);
 
+// * ----- FOOTER -------
+const footerEl = document.createElement('div');
+footerEl.classList.add('footer');
+footerEl.innerHTML =
+  'Made by <a href="https://github.com/elen-oz" target="_blanc">Me</a> and <a href="https://github.com/elen-oz/hi_js-API_v2" target="_blanc"> here is this project on GitHub</a>';
+wrapperEl.append(footerEl);
+
 let currentPage = 1;
 let totalPages = 1;
 
