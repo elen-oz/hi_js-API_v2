@@ -1,5 +1,7 @@
 'use strict';
-import { API_KEY } from './apiKey.js';
+// import { API_KEY } from './apiKey.js';
+
+const API_KEY = '33fcc7c4-dacd-4f3f-acec-62d96810fb5b';
 
 const appEl = document.querySelector('#app');
 const wrapperEl = document.createElement('div');
