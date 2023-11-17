@@ -1,7 +1,4 @@
 'use strict';
-// import { API_KEY } from './apiKey.js';
-
-const API_KEY = '33fcc7c4-dacd-4f3f-acec-62d96810fb5b';
 
 const appEl = document.querySelector('#app');
 const wrapperEl = document.createElement('div');
@@ -75,6 +72,8 @@ navigationPagesEl.append(nextBtnEl);
 
 let currentPage = 1;
 let totalPages = 1;
+
+const API_KEY = '33fcc7c4-dacd-4f3f-acec-62d96810fb5b';
 
 const urlAPI = `https://content.guardianapis.com/search?api-key=${API_KEY}&page=1&page-size=20`;
 
