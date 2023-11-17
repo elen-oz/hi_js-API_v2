@@ -5,9 +5,13 @@ const wrapperEl = document.createElement('div');
 wrapperEl.classList.add('wrapper');
 appEl.prepend(wrapperEl);
 
+const mainEl = document.createElement('div');
+mainEl.classList.add('main');
+wrapperEl.append(mainEl);
+
 const linkToHomeEl = document.createElement('a');
 linkToHomeEl.href = '#';
-wrapperEl.append(linkToHomeEl);
+mainEl.append(linkToHomeEl);
 
 const titleEl = document.createElement('h1');
 titleEl.classList.add('title');
@@ -17,7 +21,7 @@ linkToHomeEl.append(titleEl);
 // menu with categories
 const menuEl = document.createElement('div');
 menuEl.classList.add('menu');
-wrapperEl.append(menuEl);
+mainEl.append(menuEl);
 
 //* ------ SEARCH -----------
 const searchContainerEl = document.createElement('div');
@@ -45,12 +49,12 @@ searchContainerEl.append(searchBtnEl);
 const contentEl = document.createElement('div');
 contentEl.classList.add('content');
 contentEl.classList.add('content--grid');
-wrapperEl.append(contentEl);
+mainEl.append(contentEl);
 
 //* ---- PAGINATION ------
 const navigationPagesEl = document.createElement('div');
 navigationPagesEl.classList.add('navigation-pages');
-wrapperEl.append(navigationPagesEl);
+mainEl.append(navigationPagesEl);
 
 const prevBtnEl = document.createElement('button');
 prevBtnEl.classList.add('pagination-btn');
